@@ -1,0 +1,48 @@
+name: Android
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+      - name: Use specific Java version for sdkmanager to work
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'zulu'
+          architecture: 'x64'
+
+      - name: Install node_modules
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Set up emulator
+        run: |
+          sh ./scripts/setup-android-emulator.sh
+
+      - name: Build for detox
+        run: |
+          yarn e2e:android:build
+
+      - name: Test with detox
+        run: |
+          yarn e2e:android:test
+
+      - name: Store Detox artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: detox-artifacts
+          path: ./e2e/.artifacts/ # Default path for Detox artifacts
+

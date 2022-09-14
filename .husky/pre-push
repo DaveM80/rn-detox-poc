@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+GREEN='\033[0;32m'
+NOCOLOR='\033[0m'
+
+echo "${GREEN}Starting pre-push hook${NOCOLOR}"
+
+echo "${GREEN}### Linting...${NOCOLOR}"
+yarn lint
+
+echo "${GREEN}### Auditing dependancies...${NOCOLOR}"
+yarn audit
+
+echo "${GREEN}### Testing...${NOCOLOR}"
+yarn test:all
+
+echo "${GREEN}### Generate branch performance...${NOCOLOR}"
+yarn reassure
+
+echo "${GREEN}### Comparing performance with baseline...${NOCOLOR}"
+yarn test:reg:perf
+
+echo "${GREEN}### E2E Testing on Android...${NOCOLOR}"
+yarn e2e:android
+
+echo "${GREEN}### E2E Testing on IOS...${NOCOLOR}"
+yarn e2e:ios
+
+echo "${GREEN}Finished pre-push hook${NOCOLOR}"

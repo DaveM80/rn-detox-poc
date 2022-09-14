@@ -1,0 +1,47 @@
+{
+  "root": true,
+  "env": {
+    "react-native/react-native": true,
+    "jest/globals": true
+  },
+  "extends": ["airbnb", "@react-native-community", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react-native", "jest", "detox"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    },
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "__test__/**"],
+      "rules": {
+        "@typescript-eslint/no-shadow": ["error"],
+        "no-shadow": "off",
+        "no-undef": "off",
+        "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+        "jest/prefer-expect-assertions": "off",
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "jsx": "never",
+            "ts": "never",
+            "tsx": "never"
+          }
+        ],
+        "import/no-unresolved": "off"
+      }
+    }
+  ]
+}

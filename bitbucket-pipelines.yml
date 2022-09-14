@@ -1,0 +1,15 @@
+image: node:16
+
+pipelines:
+  default:
+    - step:
+        name: Static/Unit/Perf testing
+        script:
+          - yarn install
+          - yarn audit
+          - yarn lint
+          - yarn test
+          - yarn reassure
+          - yarn test:reg:perf
+        caches:
+          - node
