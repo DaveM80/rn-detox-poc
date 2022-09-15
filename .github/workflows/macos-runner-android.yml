@@ -1,0 +1,45 @@
+name: Android
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+
+      - name: Use specific Java version for sdkmanager to work
+        uses: actions/setup-java@v3
+        with:
+          java-version: "11"
+          distribution: "zulu"
+          architecture: "x64"
+
+      - name: Install node_modules
+        run: |
+          yarn install --frozen-lockfile
+      - name: Build for detox
+        run: |
+          yarn e2e:android:build
+      - name: Create emulator and run detox tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          avd-name: Pixel_2_XL_API_30
+          script: avdmanager list device && yarn e2e:android:test
+
+      - name: Store Detox artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: detox-artifacts
+          path: ./e2e/.artifacts/ # Default path for Detox artifacts

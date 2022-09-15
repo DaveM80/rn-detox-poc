@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`has no visual changes 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+>
+  <Text>
+    Hello World!!!
+  </Text>
+</RCTSafeAreaView>
+`;
