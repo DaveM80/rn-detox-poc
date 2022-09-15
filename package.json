@@ -34,7 +34,7 @@
     "@types/react-native": "^0.69.3",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^27.2.5",
-    "detox": "^19.9.1",
+    "detox": "^19.12.1",
     "jest": "^27.2.5",
     "metro-react-native-babel-preset": "^0.72.1",
     "react-test-renderer": "^18.2.0",
