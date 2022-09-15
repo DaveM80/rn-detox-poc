@@ -34,8 +34,8 @@ jobs:
       - name: Create emulator and run detox tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
-          avd-name: Pixel_2_XL_API_30
+          api-level: 28
+          avd-name: Pixel_2_XL_API_28
           script: avdmanager list device && yarn e2e:android:test
 
       - name: Store Detox artifacts
